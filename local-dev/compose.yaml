@@ -9,13 +9,13 @@ networks:
     driver: bridge
 
 services:
-  postgres:
-    image: docker.io/postgres:16
+  keycloak-postgres:
     container_name: keycloak-postgres
+    image: quay.io/sclorg/postgresql-16-c10s:latest
     environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: keycloak_password
+      POSTGRESQL_DATABASE: keycloak
+      POSTGRESQL_USER: keycloak
+      POSTGRESQL_PASSWORD: keycloak_password
     volumes:
       - postgres_data:/var/lib/postgresql/data
     networks:
@@ -27,11 +27,11 @@ services:
       retries: 5
 
   keycloak:
-    image: quay.io/keycloak/keycloak:26.0
     container_name: keycloak
+    image: quay.io/keycloak/keycloak:26.4
     environment:
       KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://postgres:5432/keycloak
+      KC_DB_URL: jdbc:postgresql://keycloak-postgres:5432/keycloak
       KC_DB_USERNAME: keycloak
       KC_DB_PASSWORD: keycloak_password
       KC_HOSTNAME: localhost
@@ -44,11 +44,11 @@ services:
       - start-dev
       - --import-realm
     volumes:
-      - ./realm-export.json:/opt/keycloak/data/import/realm-export.json:ro,z
+      - ./ossrep-local-dev-realm.json:/opt/keycloak/data/import/ossrep-local-dev-realm.json:Z
     ports:
-      - "8080:8080"
+      - "8001:8080"
     depends_on:
-      postgres:
+      keycloak-postgres:
         condition: service_healthy
     networks:
       - keycloak-network

@@ -1,0 +1,47 @@
+{
+  "realm": "ossrep-local-dev",
+  "enabled": true,
+  "clients": [
+    {
+      "clientId": "ossrep-admin-web",
+      "publicClient": true,
+      "redirectUris": [
+        "*"
+      ],
+      "webOrigins": [
+        "*"
+      ],
+      "attributes": {
+        "post.logout.redirect.uris": "*"
+      }
+    }
+  ],
+  "users": [
+    {
+      "username": "amy.admin",
+      "email": "amy.admin@ossrep.org",
+      "firstName": "Amy",
+      "lastName": "Admin",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "Pass123!",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "ossrep-admin",
+        "offline_access"
+      ],
+      "clientRoles": {
+        "account": [
+          "view-profile"
+        ],
+        "ossrep-admin-web": [
+          "ossrep-admin"
+        ]
+      }
+    }
+  ]
+}
