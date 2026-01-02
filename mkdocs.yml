@@ -1,0 +1,8 @@
+site_name: ossrep
+site_url: https://ossrep.github.io
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - Developer: developer.md
