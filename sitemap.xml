@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://ossrep.github.io/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://ossrep.github.io/architecture/microservices/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://ossrep.github.io/architecture/overview/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://ossrep.github.io/architecture/tech-stack/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://ossrep.github.io/conversations/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://ossrep.github.io/conversations/2026-01-09-project-kickoff/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://ossrep.github.io/guides/development-setup/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+    <url>
+         <loc>https://ossrep.github.io/guides/getting-started/</loc>
+         <lastmod>2026-01-09</lastmod>
+    </url>
+</urlset>
