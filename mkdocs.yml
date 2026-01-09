@@ -1,0 +1,73 @@
+site_name: OSSREP - Open Source Retail Electric Provider
+site_url: https://ossrep.github.io
+site_description: Documentation for the Open Source Retail Electric Provider platform for Texas
+site_author: OSSREP Community
+
+repo_name: ossrep/ossrep.github.io
+repo_url: https://github.com/ossrep/ossrep.github.io
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: indigo
+      accent: amber
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.tabs.link
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+  - tags
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - admonition
+  - tables
+  - toc:
+      permalink: true
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ossrep
+
+nav:
+  - Home: index.md
+  - Architecture:
+      - Overview: architecture/overview.md
+      - Microservices: architecture/microservices.md
+      - Technology Stack: architecture/tech-stack.md
+  - Guides:
+      - Getting Started: guides/getting-started.md
+      - Development Setup: guides/development-setup.md
+  - Conversations:
+      - Overview: conversations/index.md
