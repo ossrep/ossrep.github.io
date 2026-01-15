@@ -1,6 +1,6 @@
-# OSSREP Documentation
+# ossrep Documentation
 
-Documentation site for the Open Source Retail Energy Platform.
+Documentation site for the Open Source Retail Energy Platform (ossrep).
 
 ## Local Development
 
