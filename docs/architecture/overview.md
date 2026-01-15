@@ -82,7 +82,7 @@ Each microservice is aligned with a specific bounded context. See [Domain Model]
 | Meter    | Meter readings, data validation, usage calculations    |
 | Billing  | Invoices, payments, and collections                    |
 | Market   | EDI transactions, market participant communications    |
-| Product  | Rate plans, products, and pricing structures           |
+| Product  | Rate plans, pricing, terms, regulatory documents       |
 
 #### Customer Hierarchy
 

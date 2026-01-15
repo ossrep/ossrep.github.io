@@ -7,11 +7,11 @@ Welcome to **ossrep** - an open source microservices platform designed for retai
 OSSREP provides a comprehensive set of services for managing retail electricity operations including:
 
 - **Customer Management** - Individual and business customer support, multi-account hierarchies, service address and meter management
-- **Customer Enrollment** - 6-step guided enrollment flow with address validation and meter selection
+- **Customer Enrollment** - 7-step guided enrollment flow with plan selection, meter selection, and confirmation page
+- **Product/Plan Management** - Rate plans with fixed, variable, and indexed pricing; renewable energy options; regulatory documents (EFL, TOS, YRAC)
 - **Metering** - Electric meter data collection, validation, and management
 - **Billing** - Invoice generation, payment processing, and collections
 - **Market Operations** - EDI transactions, market messaging, and regulatory compliance
-- **Product Management** - Rate plans, product offerings, and pricing
 
 ## Goals
 

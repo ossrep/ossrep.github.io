@@ -26,7 +26,7 @@ Customer → Accounts → Premises → Meters
 
 ## Enrollment Flow
 
-The Customer Portal provides a 6-step guided enrollment flow for new customers:
+The Customer Portal provides a 7-step guided enrollment flow for new customers:
 
 ### Step 1: Customer Type
 
@@ -53,17 +53,36 @@ Collect customer contact details:
 - Business email and phone
 - Primary contact person details
 
-### Step 3: Service Address
+### Step 3: Service Address & Start Date
 
 The physical premise address where electricity service is needed:
 
 - Street address
 - Apartment/suite/unit (optional)
 - City, state, ZIP code
+- **Requested service start date** - When the customer wants service to begin
 
-### Step 4: Meter Selection
+The start date is used to create the contract with calculated end date based on the selected plan's term.
 
-After the service address is entered, available meters at that premise are retrieved:
+### Step 4: Plan Selection
+
+After the service address is entered, available plans for that location are displayed:
+
+- Plans are filtered by service area/ZIP code
+- Each plan displays rate per kWh, term length, and features
+- Plan types include fixed-rate, variable, and indexed options
+- Renewable energy options (wind, solar) with percentage shown
+- Early termination fees displayed for contract plans
+- Links to required disclosure documents:
+    - **EFL** (Electricity Facts Label) - standardized pricing disclosure
+    - **TOS** (Terms of Service) - contract terms and conditions
+    - **YRAC** (Your Rights as a Customer) - consumer rights information
+
+The selected plan determines the customer's energy rate and contract terms.
+
+### Step 5: Meter Selection
+
+After selecting a plan, available meters at the premise are retrieved:
 
 - System looks up meters registered at the address
 - Individual customers typically see a single meter
@@ -73,21 +92,43 @@ After the service address is entered, available meters at that premise are retri
 
 This step ensures customers only enroll for meters at their specific premise location.
 
-### Step 5: Mailing Address
+### Step 6: Mailing Address
 
 Billing/mailing address for correspondence:
 
 - Option to use service address as mailing address
 - Or specify a separate mailing address
 
-### Step 6: Review & Terms
+### Step 7: Review & Terms
 
 Final enrollment summary and terms acceptance:
 
 - Bill delivery preference (email, mail, or both)
 - Marketing opt-in/out
-- Terms of service acceptance
-- Summary showing customer info, service address, and selected meters
+- Terms of service acceptance (including EFL, TOS, YRAC acknowledgment)
+- Summary showing:
+    - Customer info and contact details
+    - Service address and selected meters
+    - Selected plan with rate and features
+    - **Contract details**: start date, end date, term length, and early termination fee (if applicable)
+
+### Confirmation Page
+
+Upon successful enrollment submission, customers are redirected to a confirmation page:
+
+- **Confirmation Number** - Unique reference for the enrollment (e.g., `ENR-M5X2Y3-AB4C`)
+- **Complete Summary** - All enrollment details displayed in organized cards:
+    - Customer information
+    - Service address and enrolled meters
+    - Plan details (rate, term, features)
+    - Contract dates (start and end)
+- **What Happens Next** - Timeline showing:
+    1. Confirmation email will be sent
+    2. Service activation on the start date
+    3. First bill after initial billing cycle
+- **Actions** - Print summary button and link to sign in
+
+A Contract is created linking the selected plan to the customer's accounts.
 
 ## Customer Types
 
@@ -117,6 +158,8 @@ Commercial/industrial customers with complex organizational needs:
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `POST` | `/api/enrollment` | Submit new customer enrollment |
+| `GET` | `/api/enrollment/plans` | Get available plans for a ZIP code |
+| `GET` | `/api/enrollment/plans/{planId}` | Get plan details with EFL, TOS, YRAC |
 | `GET` | `/api/enrollment/meters` | Look up available meters at an address |
 | `POST` | `/api/enrollment/validate-address` | Validate service address |
 
@@ -163,7 +206,62 @@ Commercial/industrial customers with complex organizational needs:
 | `GET` | `/api/preferences/notifications` | Get notification settings |
 | `PUT` | `/api/preferences/notifications` | Update notification settings |
 
+### Contract Operations
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/contracts` | List all contracts for customer |
+| `GET` | `/api/contracts/{contractId}` | Get contract details |
+| `GET` | `/api/contracts/active` | Get currently active contract(s) |
+| `POST` | `/api/contracts/{contractId}/renew` | Renew an expiring contract |
+| `POST` | `/api/contracts/{contractId}/cancel` | Cancel contract (ETF may apply) |
+| `GET` | `/api/contracts/{contractId}/accounts` | List accounts covered by contract |
+
 ## Data Models
+
+### Available Plans Response
+
+```json
+{
+  "zipCode": "75001",
+  "plans": [
+    {
+      "planId": 1001,
+      "name": "Green Energy 12",
+      "description": "Lock in a competitive rate with 100% renewable energy from Texas wind farms.",
+      "ratePerKwh": 11.9,
+      "termMonths": 12,
+      "earlyTerminationFee": 150.00,
+      "baseCharge": 9.95,
+      "renewablePercent": 100,
+      "planType": "fixed",
+      "features": ["100% Wind Energy", "Fixed Rate", "No Hidden Fees"],
+      "documents": {
+        "eflUrl": "/api/enrollment/plans/1001/efl",
+        "tosUrl": "/api/enrollment/plans/1001/tos",
+        "yracUrl": "/api/enrollment/plans/1001/yrac"
+      }
+    },
+    {
+      "planId": 1002,
+      "name": "Value Saver 24",
+      "description": "Our best long-term value with a low fixed rate locked in for 2 years.",
+      "ratePerKwh": 10.5,
+      "termMonths": 24,
+      "earlyTerminationFee": 200.00,
+      "baseCharge": 4.95,
+      "renewablePercent": 15,
+      "planType": "fixed",
+      "features": ["Lowest Rate", "24-Month Price Lock", "Low Base Charge"],
+      "documents": {
+        "eflUrl": "/api/enrollment/plans/1002/efl",
+        "tosUrl": "/api/enrollment/plans/1002/tos",
+        "yracUrl": "/api/enrollment/plans/1002/yrac"
+      }
+    }
+  ]
+}
+```
 
 ### Enrollment Request
 
@@ -181,6 +279,8 @@ Commercial/industrial customers with complex organizational needs:
     "state": "TX",
     "zip": "75001"
   },
+  "serviceStartDate": "2025-02-01",
+  "selectedPlanId": 1001,
   "selectedMeterIds": [3001],
   "mailingAddress": {
     "sameAsService": true
@@ -190,6 +290,37 @@ Commercial/industrial customers with complex organizational needs:
     "marketingOptIn": false
   },
   "acceptedTerms": true
+}
+```
+
+### Enrollment Response
+
+```json
+{
+  "success": true,
+  "confirmationNumber": "ENR-M5X2Y3-AB4C",
+  "customerId": 1,
+  "contractId": 5001,
+  "contract": {
+    "contractNumber": "CTR-2025-00001",
+    "startDate": "2025-02-01",
+    "endDate": "2026-02-01",
+    "status": "pending"
+  },
+  "accountId": 1001,
+  "accountNumber": "1234567890",
+  "enrolledMeters": [
+    {
+      "meterId": 3001,
+      "meterNumber": "E-12345678"
+    }
+  ],
+  "submittedAt": "2025-01-15T14:30:00Z",
+  "nextSteps": [
+    "Confirmation email sent to john.smith@example.com",
+    "Service activation scheduled for Feb 1, 2025",
+    "First bill will be generated after initial billing cycle"
+  ]
 }
 ```
 
@@ -217,6 +348,8 @@ Commercial/industrial customers with complex organizational needs:
     "state": "TX",
     "zip": "75201"
   },
+  "serviceStartDate": "2025-02-15",
+  "selectedPlanId": 1002,
   "selectedMeterIds": [3001, 3002, 3003],
   "mailingAddress": {
     "sameAsService": false,
@@ -230,6 +363,62 @@ Commercial/industrial customers with complex organizational needs:
     "marketingOptIn": true
   },
   "acceptedTerms": true
+}
+```
+
+### Contract Response
+
+```json
+{
+  "contractId": 5001,
+  "contractNumber": "CTR-2025-00001",
+  "customerId": 1,
+  "status": "active",
+  "startDate": "2025-02-01",
+  "endDate": "2026-02-01",
+  "signedAt": "2025-01-15T14:30:00Z",
+  "plan": {
+    "planId": 1001,
+    "name": "Green Energy 12",
+    "ratePerKwh": 11.9,
+    "termMonths": 12,
+    "planType": "fixed"
+  },
+  "earlyTerminationFee": 150.00,
+  "accounts": [
+    {
+      "accountId": 1001,
+      "accountNumber": "1234567890",
+      "addedAt": "2025-01-15T14:30:00Z"
+    }
+  ]
+}
+```
+
+### Contract List Response
+
+```json
+{
+  "contracts": [
+    {
+      "contractId": 5001,
+      "contractNumber": "CTR-2025-00001",
+      "status": "active",
+      "startDate": "2025-02-01",
+      "endDate": "2026-02-01",
+      "planName": "Green Energy 12",
+      "accountCount": 1
+    },
+    {
+      "contractId": 4001,
+      "contractNumber": "CTR-2024-00015",
+      "status": "expired",
+      "startDate": "2024-02-01",
+      "endDate": "2025-02-01",
+      "planName": "Value Saver 12",
+      "accountCount": 1
+    }
+  ]
 }
 ```
 
@@ -421,6 +610,12 @@ The Customer Service publishes events to Kafka for cross-service communication:
 | `CustomerUpdated` | Customer profile changed | Billing |
 | `AccountCreated` | New account added | Billing |
 | `AccountStatusChanged` | Account activated/deactivated | Billing, Market |
+| `ContractCreated` | New contract created during enrollment | Billing, Market |
+| `ContractActivated` | Contract start date reached | Billing |
+| `ContractExpiring` | Contract approaching end date | Notifications |
+| `ContractExpired` | Contract term ended | Billing |
+| `ContractRenewed` | Customer renewed into new contract | Billing, Market |
+| `ContractCancelled` | Contract cancelled early | Billing |
 | `PremiseAdded` | New premise added | Meter, Market |
 | `MeterEnrolled` | Meter selected during enrollment | Meter, Market |
 | `MeterInstalled` | Meter added to premise | Meter, Billing |
@@ -453,16 +648,18 @@ The Customer Portal (`ossrep-customer-portal`) provides self-service access to C
 
 ### Enrollment (Start Service)
 
-6-step guided enrollment for new customers:
+7-step guided enrollment for new customers with confirmation page:
 
 1. **Customer Type** - Individual or business selection
 2. **Contact Information** - Customer and contact details
-3. **Service Address** - Premise location for service
-4. **Meter Selection** - Select meters at the premise to enroll
-5. **Mailing Address** - Billing address configuration
-6. **Review & Terms** - Summary and terms acceptance
+3. **Service Address & Start Date** - Premise location and requested start date
+4. **Plan Selection** - Choose electricity plan (rate, term, features)
+5. **Meter Selection** - Select meters at the premise to enroll
+6. **Mailing Address** - Billing address configuration
+7. **Review & Terms** - Summary and terms acceptance
+8. **Confirmation Page** - Complete summary with confirmation number and next steps
 
-The meter selection step allows customers to choose which meters at their service address to enroll for service. This is particularly useful for business customers with multiple meters at a single premise.
+The plan selection step displays available electricity plans with rates, contract terms, renewable energy options, and links to required disclosure documents (EFL, TOS, YRAC). Upon completion, customers receive a confirmation number and can print their enrollment summary.
 
 ### Dashboard
 

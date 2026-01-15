@@ -15,7 +15,8 @@ Manages customer lifecycle, accounts, premises, and meters. Supports both indivi
 **Key Capabilities:**
 
 - Customer enrollment and onboarding (individual and business)
-- 6-step enrollment flow with meter selection at the premise
+- 7-step enrollment flow with plan selection, meter selection, and confirmation page
+- Contract management (creation, renewal, cancellation)
 - Multi-account support for business customers
 - Premise management
 - Meter registration and tracking
@@ -74,17 +75,25 @@ Handles market transactions and regulatory communications.
 
 ### Product Service
 
-Manages rate plans and product offerings.
+Manages rate plans and product offerings that customers select during enrollment.
 
 **Repository:** `product-service`
 
 **Key Capabilities:**
 
-- Rate plan definitions
-- Product catalog
-- Pricing structures
-- Promotional offers
-- Contract terms
+- Rate plan definitions (fixed, variable, indexed)
+- Product catalog with pricing tiers
+- Contract terms and early termination fees
+- Renewable energy options and percentages
+- Regulatory document management (EFL, TOS, YRAC)
+- Service area and ZIP code availability
+- Promotional offers and discounts
+
+**Plan Types:**
+
+- **Fixed Rate** - Locked energy rate for the contract term
+- **Variable Rate** - Rate adjusts monthly based on market conditions
+- **Indexed Rate** - Rate tied to a market index plus margin
 
 ## Service Communication
 
