@@ -1,22 +1,22 @@
 # Open Source Retail Energy Platform
 
-Welcome to **ossep** - an open source microservices platform designed for retail energy operations.
+Welcome to **ossrep** - an open source microservices platform designed for retail electricity operations.
 
 ## Overview
 
-OSSREP provides a comprehensive set of services for managing retail energy operations including:
+OSSREP provides a comprehensive set of services for managing retail electricity operations including:
 
-- **Customer Management** - Customer enrollment, account management, and lifecycle operations
-- **Metering** - Meter data collection, validation, and management
+- **Customer Management** - Individual and business customer support, multi-account hierarchies, service address and meter management
+- **Metering** - Electric meter data collection, validation, and management
 - **Billing** - Invoice generation, payment processing, and collections
 - **Market Operations** - EDI transactions, market messaging, and regulatory compliance
 - **Product Management** - Rate plans, product offerings, and pricing
 
 ## Goals
 
-- Provide an open source reference implementation for retail energy software
+- Provide an open source reference implementation for retail electricity software
 - Demonstrate modern microservices architecture patterns
-- Enable rapid development and deployment of retail energy solutions
+- Enable rapid development and deployment of retail electricity solutions
 - Support multiple market jurisdictions and regulatory requirements
 
 ## Technology Stack

@@ -74,15 +74,23 @@ Restricted to internal network access with additional authentication requirement
 
 ### Domain-Driven Design
 
-Each microservice is aligned with a specific bounded context:
+Each microservice is aligned with a specific bounded context. See [Domain Model](domain-model.md) for detailed entity relationships.
 
 | Service  | Bounded Context                                        |
 | -------- | ------------------------------------------------------ |
-| Customer | Customer accounts, contacts, and service agreements    |
-| Meter    | Meter assets, readings, and data validation            |
+| Customer | Customers, accounts, premises, meters                  |
+| Meter    | Meter readings, data validation, usage calculations    |
 | Billing  | Invoices, payments, and collections                    |
 | Market   | EDI transactions, market participant communications    |
 | Product  | Rate plans, products, and pricing structures           |
+
+#### Customer Hierarchy
+
+The Customer Service supports a flexible hierarchy to accommodate both residential and commercial customers:
+
+- **Individual customers**: Typically one account with one or more premises
+- **Business customers**: Multiple accounts (by department/location), each with multiple premises and meters
+- **Billing**: Occurs at the account level, with aggregated views for business customers
 
 ### Database per Service
 

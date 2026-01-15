@@ -42,9 +42,11 @@ nav:
   - Home: index.md
   - Architecture:
       - Overview: architecture/overview.md
+      - Domain Model: architecture/domain-model.md
       - Technology Stack: architecture/technology-stack.md
       - Identity & Access Management: architecture/identity.md
   - Services:
       - Overview: services/overview.md
+      - Customer Service: services/customer-service.md
   - Getting Started:
       - Development Setup: getting-started/development-setup.md

@@ -1,22 +1,25 @@
 # Services Overview
 
-OSSREP is composed of several microservices, each responsible for a specific business domain within retail energy operations.
+OSSREP is composed of several microservices, each responsible for a specific business domain within retail electricity operations.
 
 ## Core Services
 
 ### Customer Service
 
-Manages customer lifecycle and account information.
+Manages customer lifecycle, accounts, premises, and meters. Supports both individual (residential) and business (commercial) customers with flexible account hierarchies.
 
 **Repository:** `customer-service`
 
+**[Full Documentation →](customer-service.md)**
+
 **Key Capabilities:**
 
-- Customer enrollment and onboarding
-- Account management
-- Contact information
-- Service agreements
-- Customer preferences
+- Customer enrollment and onboarding (individual and business)
+- Multi-account support for business customers
+- Premise management
+- Meter registration and tracking
+- Customer preferences and communication settings
+- Aggregated views across accounts for business customers
 
 ---
 
