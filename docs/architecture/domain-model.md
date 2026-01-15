@@ -119,11 +119,14 @@ A physical device that measures electricity consumption at a premise.
 | `meterNumber` | String | Physical meter identifier |
 | `premiseId` | Long | Reference to premise |
 | `type` | Enum | `electric` |
-| `status` | Enum | `active`, `inactive` |
+| `status` | Enum | `available`, `active`, `inactive` |
 | `installDate` | Date | Meter installation date |
 | `lastReading` | Decimal | Most recent meter reading |
 | `lastReadingDate` | Date | Date of most recent reading |
 | `unit` | String | Unit of measure (`kWh`) |
+
+!!! info "Meter Selection During Enrollment"
+    During the enrollment process, customers select which meters at a premise to enroll for service. Meters with status `available` are shown to new customers. Once enrolled, the meter status changes to `active`.
 
 ## Billing Entities
 

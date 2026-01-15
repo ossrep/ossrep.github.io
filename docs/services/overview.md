@@ -15,6 +15,7 @@ Manages customer lifecycle, accounts, premises, and meters. Supports both indivi
 **Key Capabilities:**
 
 - Customer enrollment and onboarding (individual and business)
+- 6-step enrollment flow with meter selection at the premise
 - Multi-account support for business customers
 - Premise management
 - Meter registration and tracking
