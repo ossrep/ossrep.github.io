@@ -37,28 +37,50 @@ sudo dnf install podman podman-compose
 
 ### Local Services
 
-For local development, you'll need:
+For local development, you'll need PostgreSQL, Keycloak (two instances), and Kafka. The easiest way to start all services is with podman-compose.
+
+#### Red Hat Registry Authentication
+
+The compose file uses Red Hat container images. Authenticate with the registry first (requires a free Red Hat developer account):
 
 ```bash
-# PostgreSQL
-podman run -d --name postgres \
-  -e POSTGRES_PASSWORD=postgres \
-  -p 5432:5432 \
-  postgres:latest
-
-# Keycloak
-podman run -d --name keycloak \
-  -e KEYCLOAK_ADMIN=admin \
-  -e KEYCLOAK_ADMIN_PASSWORD=admin \
-  -p 8180:8080 \
-  quay.io/keycloak/keycloak:latest start-dev
-
-# Kafka (using Redpanda for simplicity)
-podman run -d --name redpanda \
-  -p 9092:9092 \
-  docker.redpanda.com/redpandadata/redpanda:latest \
-  redpanda start --smp 1 --memory 1G --overprovisioned
+podman login registry.redhat.io
 ```
+
+#### Starting Services
+
+```bash
+cd ossrep.github.io
+podman-compose up -d
+```
+
+This starts:
+
+| Service | Image | Port | Purpose |
+|---------|-------|------|---------|
+| PostgreSQL | rhel9/postgresql-16:latest | 5432 | Database |
+| Keycloak External | rhbk/keycloak-rhel9:26.0 | 8180 | Customers, partners |
+| Keycloak Internal | rhbk/keycloak-rhel9:26.0 | 8181 | Admins, employees |
+| Kafka | amq-streams/kafka-37-rhel9:2.7.0 | 9094 | Event streaming |
+
+To stop all services:
+
+```bash
+podman-compose down
+```
+
+### Test Users
+
+Both Keycloak instances come pre-configured with test users:
+
+| Keycloak | Realm | Username | Password | Role |
+|----------|-------|----------|----------|------|
+| External (8180) | ossrep | alice | password | customer |
+| External (8180) | ossrep | bob | password | customer |
+| Internal (8181) | ossrep-internal | jsmith | password | csr |
+| Internal (8181) | ossrep-internal | admin | password | admin |
+
+See [Identity & Access Management](../architecture/identity.md) for full details.
 
 ## Project Structure
 

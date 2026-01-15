@@ -1,0 +1,104 @@
+# OSSREP Local Development Services
+#
+# Prerequisites:
+#   Authenticate with the Red Hat Container Registry:
+#     podman login registry.redhat.io
+#
+#   You'll need a Red Hat account (free developer accounts work).
+#   See: https://access.redhat.com/RegistryAuthentication
+#
+# Usage:
+#   podman-compose up -d
+#   podman-compose down
+#
+# Image versions:
+#   Red Hat images require explicit version tags. Check for updates at:
+#   https://catalog.redhat.com/software/containers/search
+
+version: "3.8"
+
+services:
+  postgres:
+    image: registry.redhat.io/rhel9/postgresql-16:latest
+    container_name: postgres
+    environment:
+      POSTGRESQL_USER: ossrep
+      POSTGRESQL_PASSWORD: ossrep
+      POSTGRESQL_DATABASE: ossrep
+      POSTGRESQL_ADMIN_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/pgsql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ossrep -d ossrep"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  keycloak-external:
+    image: registry.redhat.io/rhbk/keycloak-rhel9:26.0
+    container_name: keycloak-external
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    ports:
+      - "8180:8080"
+    volumes:
+      - ./keycloak/ossrep-realm.json:/opt/keycloak/data/import/ossrep-realm.json:ro,Z
+    command: start-dev --import-realm
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q '200 OK'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  keycloak-internal:
+    image: registry.redhat.io/rhbk/keycloak-rhel9:26.0
+    container_name: keycloak-internal
+    environment:
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+    ports:
+      - "8181:8080"
+    volumes:
+      - ./keycloak/ossrep-internal-realm.json:/opt/keycloak/data/import/ossrep-internal-realm.json:ro,Z
+    command: start-dev --import-realm
+    healthcheck:
+      test: ["CMD-SHELL", "exec 3<>/dev/tcp/localhost/8080 && echo -e 'GET /health/ready HTTP/1.1\\r\\nHost: localhost\\r\\nConnection: close\\r\\n\\r\\n' >&3 && cat <&3 | grep -q '200 OK'"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  kafka:
+    image: registry.redhat.io/amq-streams/kafka-37-rhel9:2.7.0
+    container_name: kafka
+    environment:
+      LOG_DIR: /tmp/logs
+      KAFKA_NODE_ID: "1"
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092,CONTROLLER://0.0.0.0:9093,EXTERNAL://0.0.0.0:9094
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,EXTERNAL://localhost:9094
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 1@kafka:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: "1"
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: "1"
+    ports:
+      - "9094:9094"
+    volumes:
+      - kafka_data:/var/lib/kafka/data
+    healthcheck:
+      test: ["CMD-SHELL", "/opt/kafka/bin/kafka-broker-api-versions.sh --bootstrap-server localhost:9092 > /dev/null 2>&1"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+volumes:
+  postgres_data:
+  kafka_data:

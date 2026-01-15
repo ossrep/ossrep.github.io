@@ -1,0 +1,112 @@
+{
+  "realm": "ossrep-internal",
+  "enabled": true,
+  "registrationAllowed": false,
+  "resetPasswordAllowed": true,
+  "editUsernameAllowed": false,
+  "bruteForceProtected": true,
+  "roles": {
+    "realm": [
+      {
+        "name": "csr",
+        "description": "Customer service representative"
+      },
+      {
+        "name": "supervisor",
+        "description": "Team supervisor with escalation access"
+      },
+      {
+        "name": "admin",
+        "description": "System administrator"
+      },
+      {
+        "name": "readonly",
+        "description": "Read-only access for auditors"
+      }
+    ]
+  },
+  "clients": [
+    {
+      "clientId": "ossrep-admin-portal",
+      "name": "OSSREP Admin Portal",
+      "enabled": true,
+      "publicClient": true,
+      "standardFlowEnabled": true,
+      "directAccessGrantsEnabled": false,
+      "redirectUris": [
+        "http://localhost:4300/*"
+      ],
+      "webOrigins": [
+        "http://localhost:4300"
+      ],
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "email"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access"
+      ]
+    }
+  ],
+  "users": [
+    {
+      "username": "jsmith",
+      "email": "jsmith@ossrep.io",
+      "firstName": "John",
+      "lastName": "Smith",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "csr"
+      ]
+    },
+    {
+      "username": "mjones",
+      "email": "mjones@ossrep.io",
+      "firstName": "Mary",
+      "lastName": "Jones",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "supervisor"
+      ]
+    },
+    {
+      "username": "admin",
+      "email": "admin@ossrep.io",
+      "firstName": "System",
+      "lastName": "Administrator",
+      "enabled": true,
+      "emailVerified": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": [
+        "admin"
+      ]
+    }
+  ]
+}

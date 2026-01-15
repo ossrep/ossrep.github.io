@@ -43,6 +43,7 @@ nav:
   - Architecture:
       - Overview: architecture/overview.md
       - Technology Stack: architecture/technology-stack.md
+      - Identity & Access Management: architecture/identity.md
   - Services:
       - Overview: services/overview.md
   - Getting Started:
