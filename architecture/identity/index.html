@@ -1,0 +1,1590 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Documentation for OSSREP - A microservices-based platform for retail energy operations">
+      
+      
+      
+        <link rel="canonical" href="https://ossrep.github.io/architecture/identity/">
+      
+      
+        <link rel="prev" href="../technology-stack/">
+      
+      
+        <link rel="next" href="../../services/overview/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.1">
+    
+    
+      
+        <title>Identity & Access Management - Open Source Retail Energy Platform</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#identity-access-management" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Open Source Retail Energy Platform" class="md-header__button md-logo" aria-label="Open Source Retail Energy Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Open Source Retail Energy Platform
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Identity & Access Management
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../overview/" class="md-tabs__link">
+          
+  
+  
+  Architecture
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../services/overview/" class="md-tabs__link">
+          
+  
+  
+  Services
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/development-setup/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Open Source Retail Energy Platform" class="md-nav__button md-logo" aria-label="Open Source Retail Energy Platform" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Open Source Retail Energy Platform
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Architecture
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Architecture
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../domain-model/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain Model
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../technology-stack/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technology Stack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identity & Access Management
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Identity & Access Management
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-two-keycloak-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Two Keycloak Instances?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instance-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instance Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instance Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-keycloak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External Keycloak
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-keycloak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Keycloak
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-development-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Development Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local Development Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#starting-both-keycloak-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Starting Both Keycloak Instances
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-configured-test-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-configured Test Users
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pre-configured Test Users">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-keycloak-httplocalhost8180" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External Keycloak (http://localhost:8180)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-keycloak-httplocalhost8181" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Keycloak (http://localhost:8181)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-console-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Admin Console Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#realm-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Realm Configuration Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-and-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roles and Permissions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Roles and Permissions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-realm-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External Realm Roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-realm-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Realm Roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production Considerations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Services
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Services
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/overview/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../services/customer-service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Customer Service
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/development-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Development Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#why-two-keycloak-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why Two Keycloak Instances?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instance-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instance Configuration
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instance Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-keycloak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External Keycloak
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-keycloak" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Keycloak
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-development-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Development Setup
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local Development Setup">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#starting-both-keycloak-instances" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Starting Both Keycloak Instances
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pre-configured-test-users" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pre-configured Test Users
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pre-configured Test Users">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-keycloak-httplocalhost8180" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External Keycloak (http://localhost:8180)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-keycloak-httplocalhost8181" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Keycloak (http://localhost:8181)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#admin-console-access" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Admin Console Access
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#realm-configuration-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Realm Configuration Files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roles-and-permissions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Roles and Permissions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Roles and Permissions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-realm-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External Realm Roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#internal-realm-roles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Internal Realm Roles
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#service-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#production-considerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Production Considerations
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="identity-access-management">Identity &amp; Access Management<a class="headerlink" href="#identity-access-management" title="Permanent link">&para;</a></h1>
+<p>OSSREP uses <a href="https://access.redhat.com/products/red-hat-build-of-keycloak">Red Hat build of Keycloak</a> in a dual-instance architecture to separate external and internal user populations, aligning with the <a href="../overview/#gateway-architecture">dual-gateway pattern</a>.</p>
+<h2 id="architecture-overview">Architecture Overview<a class="headerlink" href="#architecture-overview" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>┌─────────────────────┐                    ┌─────────────────────┐
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>│   Customer Portal   │                    │    Admin Portal     │
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│     Mobile Apps     │                    │                     │
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>└──────────┬──────────┘                    └──────────┬──────────┘
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>           │                                          │
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>           ▼                                          ▼
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>┌─────────────────────┐                    ┌─────────────────────┐
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│  Keycloak External  │                    │  Keycloak Internal  │
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>│                     │                    │                     │
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>│  Realm: ossrep      │                    │  Realm: ossrep-     │
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>│                     │                    │         internal    │
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>│  Users:             │                    │                     │
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>│  - Customers        │                    │  Users:             │
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>│  - Partners         │                    │  - Employees        │
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>│  - Third-party apps │                    │  - Administrators   │
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>└─────────────────────┘                    └─────────────────────┘
+</code></pre></div>
+<h2 id="why-two-keycloak-instances">Why Two Keycloak Instances?<a class="headerlink" href="#why-two-keycloak-instances" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Concern</th>
+<th>Benefit of Separation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Security isolation</strong></td>
+<td>Compromise of external IdP doesn't affect internal systems</td>
+</tr>
+<tr>
+<td><strong>Policy flexibility</strong></td>
+<td>Different password policies, MFA requirements, session timeouts</td>
+</tr>
+<tr>
+<td><strong>User experience</strong></td>
+<td>Tailored login flows for each audience</td>
+</tr>
+<tr>
+<td><strong>Compliance</strong></td>
+<td>Easier audit trails and access reviews per user population</td>
+</tr>
+<tr>
+<td><strong>Availability</strong></td>
+<td>External traffic spikes don't impact internal operations</td>
+</tr>
+</tbody>
+</table>
+<h2 id="instance-configuration">Instance Configuration<a class="headerlink" href="#instance-configuration" title="Permanent link">&para;</a></h2>
+<h3 id="external-keycloak">External Keycloak<a class="headerlink" href="#external-keycloak" title="Permanent link">&para;</a></h3>
+<p>Serves customer-facing applications and public APIs.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Port</td>
+<td>8180 (dev)</td>
+</tr>
+<tr>
+<td>Realm</td>
+<td><code>ossrep</code></td>
+</tr>
+<tr>
+<td>Admin Console</td>
+<td>http://localhost:8180</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Clients:</strong></p>
+<ul>
+<li><code>ossrep-customer-portal</code> - Customer self-service web application</li>
+<li><code>ossrep-mobile</code> - iOS and Android mobile apps</li>
+<li><code>ossrep-api</code> - Third-party API consumers</li>
+</ul>
+<h3 id="internal-keycloak">Internal Keycloak<a class="headerlink" href="#internal-keycloak" title="Permanent link">&para;</a></h3>
+<p>Serves administrative applications and internal APIs.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Port</td>
+<td>8181 (dev)</td>
+</tr>
+<tr>
+<td>Realm</td>
+<td><code>ossrep-internal</code></td>
+</tr>
+<tr>
+<td>Admin Console</td>
+<td>http://localhost:8181</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Clients:</strong></p>
+<ul>
+<li><code>ossrep-admin-portal</code> - Internal operations and customer service</li>
+<li><code>ossrep-service-accounts</code> - Service-to-service authentication</li>
+</ul>
+<h2 id="local-development-setup">Local Development Setup<a class="headerlink" href="#local-development-setup" title="Permanent link">&para;</a></h2>
+<h3 id="starting-both-keycloak-instances">Starting Both Keycloak Instances<a class="headerlink" href="#starting-both-keycloak-instances" title="Permanent link">&para;</a></h3>
+<p>The easiest way to start both Keycloak instances (along with PostgreSQL and Kafka) is using podman-compose from the <code>ossrep.github.io</code> repository:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Authenticate with Red Hat registry (requires free developer account)</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>podman<span class="w"> </span>login<span class="w"> </span>registry.redhat.io
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="nb">cd</span><span class="w"> </span>ossrep.github.io
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>podman-compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<p>Both Keycloak instances automatically import pre-configured realms with test users on startup.</p>
+<h3 id="pre-configured-test-users">Pre-configured Test Users<a class="headerlink" href="#pre-configured-test-users" title="Permanent link">&para;</a></h3>
+<h4 id="external-keycloak-httplocalhost8180">External Keycloak (http://localhost:8180)<a class="headerlink" href="#external-keycloak-httplocalhost8180" title="Permanent link">&para;</a></h4>
+<p>Realm: <code>ossrep</code></p>
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Password</th>
+<th>Role</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>alice</td>
+<td>password</td>
+<td>customer</td>
+<td>Standard customer</td>
+</tr>
+<tr>
+<td>bob</td>
+<td>password</td>
+<td>customer</td>
+<td>Standard customer</td>
+</tr>
+<tr>
+<td>carol</td>
+<td>password</td>
+<td>partner</td>
+<td>Partner organization</td>
+</tr>
+</tbody>
+</table>
+<h4 id="internal-keycloak-httplocalhost8181">Internal Keycloak (http://localhost:8181)<a class="headerlink" href="#internal-keycloak-httplocalhost8181" title="Permanent link">&para;</a></h4>
+<p>Realm: <code>ossrep-internal</code></p>
+<table>
+<thead>
+<tr>
+<th>Username</th>
+<th>Password</th>
+<th>Role</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>jsmith</td>
+<td>password</td>
+<td>csr</td>
+<td>Customer service rep</td>
+</tr>
+<tr>
+<td>mjones</td>
+<td>password</td>
+<td>supervisor</td>
+<td>Team supervisor</td>
+</tr>
+<tr>
+<td>admin</td>
+<td>password</td>
+<td>admin</td>
+<td>System administrator</td>
+</tr>
+</tbody>
+</table>
+<h3 id="admin-console-access">Admin Console Access<a class="headerlink" href="#admin-console-access" title="Permanent link">&para;</a></h3>
+<p>Both instances have admin consoles available:</p>
+<ul>
+<li><strong>External</strong>: http://localhost:8180 (admin / admin)</li>
+<li><strong>Internal</strong>: http://localhost:8181 (admin / admin)</li>
+</ul>
+<h3 id="realm-configuration-files">Realm Configuration Files<a class="headerlink" href="#realm-configuration-files" title="Permanent link">&para;</a></h3>
+<p>The realm configurations are stored in <code>keycloak/</code> and mounted into the containers:</p>
+<ul>
+<li><code>keycloak/ossrep-realm.json</code> - External realm for customers/partners</li>
+<li><code>keycloak/ossrep-internal-realm.json</code> - Internal realm for employees/admins</li>
+</ul>
+<p>To modify the default configuration, edit these files and restart the containers:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>podman-compose<span class="w"> </span>down
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>podman-compose<span class="w"> </span>up<span class="w"> </span>-d
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Realm Import Behavior</p>
+<p>Keycloak only imports realms if they don't already exist. To re-import after changes, 
+remove the existing realm via the admin console or delete the container volumes:
+<code>podman-compose down -v</code></p>
+</div>
+<h2 id="roles-and-permissions">Roles and Permissions<a class="headerlink" href="#roles-and-permissions" title="Permanent link">&para;</a></h2>
+<h3 id="external-realm-roles">External Realm Roles<a class="headerlink" href="#external-realm-roles" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>customer</code></td>
+<td>Standard customer access</td>
+</tr>
+<tr>
+<td><code>partner</code></td>
+<td>Partner organization access</td>
+</tr>
+<tr>
+<td><code>api-consumer</code></td>
+<td>Third-party API access</td>
+</tr>
+</tbody>
+</table>
+<h3 id="internal-realm-roles">Internal Realm Roles<a class="headerlink" href="#internal-realm-roles" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Role</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>csr</code></td>
+<td>Customer service representative</td>
+</tr>
+<tr>
+<td><code>supervisor</code></td>
+<td>Team supervisor with escalation access</td>
+</tr>
+<tr>
+<td><code>admin</code></td>
+<td>System administrator</td>
+</tr>
+<tr>
+<td><code>readonly</code></td>
+<td>Read-only access for auditors</td>
+</tr>
+</tbody>
+</table>
+<h2 id="service-integration">Service Integration<a class="headerlink" href="#service-integration" title="Permanent link">&para;</a></h2>
+<p>All backend services validate JWT tokens from both Keycloak instances. Services determine which issuer to trust based on the API gateway the request arrived through:</p>
+<ul>
+<li>Requests via <strong>External Gateway</strong> → validate against External Keycloak</li>
+<li>Requests via <strong>Internal Gateway</strong> → validate against Internal Keycloak</li>
+</ul>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Example Quarkus configuration</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">quarkus</span><span class="p">:</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="nt">oidc</span><span class="p">:</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="nt">auth-server-url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OIDC_ISSUER:http://localhost:8180/realms/ossrep}</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">    </span><span class="nt">client-id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${OIDC_CLIENT_ID:ossrep-backend}</span>
+</code></pre></div>
+<h2 id="production-considerations">Production Considerations<a class="headerlink" href="#production-considerations" title="Permanent link">&para;</a></h2>
+<div class="admonition warning">
+<p class="admonition-title">Development vs Production</p>
+<p>The <code>start-dev</code> mode is for local development only. Production deployments should use:</p>
+<ul>
+<li>Externalized PostgreSQL database</li>
+<li>TLS/HTTPS configuration</li>
+<li>Proper admin credentials</li>
+<li>High availability configuration</li>
+</ul>
+</div>
+<p>For production deployment patterns, refer to the <a href="https://access.redhat.com/documentation/en-us/red_hat_build_of_keycloak/">Red Hat build of Keycloak documentation</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
