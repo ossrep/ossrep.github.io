@@ -22,7 +22,6 @@ The API follows a three-tier architecture:
 - **Repository layer** (`com.ossrep.servicepoint.repository`) - JPA entities, Panache repositories
 - **ISO layer** (`com.ossrep.servicepoint.iso`) - ISO reference data (read-only)
 - **TDSP layer** (`com.ossrep.servicepoint.tdsp`) - TDSP reference data (read-only)
-- **Ingestion layer** (`com.ossrep.servicepoint.ingestion`) - Ingestion log tracking (ERCOT ingestion logic lives in [job-ercot-esiid](https://github.com/ossrep/job-ercot-esiid))
 
 ## REST Endpoints
 
@@ -52,14 +51,6 @@ All endpoints are secured with OIDC and require appropriate roles.
 | `PUT`    | `/{servicePointId}`    | admin        | Update a service point       | 200    |
 | `PUT`    | `/bulk`                | admin        | Bulk upsert by ESIID         | 200    |
 | `DELETE` | `/{servicePointId}`    | admin        | Delete a service point       | 204    |
-
-### Ingestion Logs - `/api/v1/ingestion-logs`
-
-| Method   | Path                    | Roles  | Description                                   | Status |
-| -------- | ----------------------- | ------ | --------------------------------------------- | ------ |
-| `GET`    | `/`                     | admin  | List logs (filter: `?fileName=`)              | 200    |
-| `POST`   | `/`                     | admin  | Create log entry (status=PROCESSING)          | 201    |
-| `PUT`    | `/{ingestionLogId}`     | admin  | Update log status (COMPLETED/FAILED)          | 200    |
 
 ## Domain Model
 
@@ -139,7 +130,7 @@ Each event contains the event type, a timestamp, and the full service point payl
 - `iso` - Independent System Operator reference data (seeded with ERCOT)
 - `tdsp` - Transmission/Distribution Service Provider reference data (seeded with 11 TDSPs)
 - `service_point` - Service points with `tdsp_id` FK to `tdsp`
-- `ingestion_log` - ERCOT data ingestion tracking with `tdsp_id` FK to `tdsp`
+
 
 ### Key Conventions
 
