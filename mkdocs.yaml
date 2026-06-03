@@ -51,8 +51,11 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - APIs:
-    - Service Point: apis/service-point.md
+  - Projects:
+    - api-service-point: projects/api-service-point.md
+    - job-ercot-esiid: projects/job-ercot-esiid.md
+  - Integrations:
+    - ERCOT: integrations/ercot.md
 
 plugins:
   - search
