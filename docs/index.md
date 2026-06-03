@@ -14,8 +14,7 @@ OSSREP organization documentation site.
 | Port  | Service                                | Project            |
 | ----- | -------------------------------------- | ------------------ |
 | 8001  | MkDocs dev server                      | ossrep.github.io   |
-| 8080  |                                        | api-service-point  |
-| 8081  | REST API                               | api-service-point  |
+| 8080  | REST API                               | api-service-point  |
 | 5431  | PostgreSQL (Dev Services)              | api-service-point  |
 
 Port conventions:
