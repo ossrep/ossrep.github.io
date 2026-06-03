@@ -49,5 +49,10 @@ markdown_extensions:
   - toc:
       permalink: true
 
+nav:
+  - Home: index.md
+  - APIs:
+    - Service Point: apis/service-point.md
+
 plugins:
   - search

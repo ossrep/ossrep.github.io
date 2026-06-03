@@ -19,6 +19,7 @@ pip install mkdocs-material
 Start the development server:
 
 ```shell
+source .venv/bin/activate
 mkdocs serve --livereload
 ```
 
