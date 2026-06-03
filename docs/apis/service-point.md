@@ -20,8 +20,6 @@ The API follows a three-tier architecture:
 - **API layer** (`com.ossrep.servicepoint.api`) - REST resources, request/response records, roles
 - **Service layer** (`com.ossrep.servicepoint.service`) - Business logic, domain records, event emission
 - **Repository layer** (`com.ossrep.servicepoint.repository`) - JPA entities, Panache repositories
-- **ISO layer** (`com.ossrep.servicepoint.iso`) - ISO reference data (read-only)
-- **TDSP layer** (`com.ossrep.servicepoint.tdsp`) - TDSP reference data (read-only)
 
 ## REST Endpoints
 
