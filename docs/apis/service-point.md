@@ -22,7 +22,7 @@ The API follows a three-tier architecture:
 - **Repository layer** (`com.ossrep.servicepoint.repository`) - JPA entities, Panache repositories
 - **ISO layer** (`com.ossrep.servicepoint.iso`) - ISO reference data (read-only)
 - **TDSP layer** (`com.ossrep.servicepoint.tdsp`) - TDSP reference data (read-only)
-- **Ingestion layer** (`com.ossrep.servicepoint.ingestion`) - ERCOT ESIID data ingestion
+- **Ingestion layer** (`com.ossrep.servicepoint.ingestion`) - Ingestion log tracking (ERCOT ingestion logic lives in [job-ercot-esiid](https://github.com/ossrep/job-ercot-esiid))
 
 ## REST Endpoints
 
@@ -37,10 +37,10 @@ All endpoints are secured with OIDC and require appropriate roles.
 
 ### TDSPs - `/api/v1/tdsps`
 
-| Method   | Path           | Roles        | Description          | Status |
-| -------- | -------------- | ------------ | -------------------- | ------ |
-| `GET`    | `/`            | admin, user  | List all TDSPs       | 200    |
-| `GET`    | `/{tdspId}`    | admin, user  | Get a TDSP by ID     | 200    |
+| Method   | Path           | Roles        | Description                        | Status |
+| -------- | -------------- | ------------ | ---------------------------------- | ------ |
+| `GET`    | `/`            | admin, user  | List all TDSPs (filter: `?code=`)  | 200    |
+| `GET`    | `/{tdspId}`    | admin, user  | Get a TDSP by ID                   | 200    |
 
 ### Service Points - `/api/v1/service-points`
 
@@ -50,7 +50,16 @@ All endpoints are secured with OIDC and require appropriate roles.
 | `GET`    | `/{servicePointId}`    | admin, user  | Get a service point by ID    | 200    |
 | `POST`   | `/`                    | admin        | Create a new service point   | 201    |
 | `PUT`    | `/{servicePointId}`    | admin        | Update a service point       | 200    |
+| `PUT`    | `/bulk`                | admin        | Bulk upsert by ESIID         | 200    |
 | `DELETE` | `/{servicePointId}`    | admin        | Delete a service point       | 204    |
+
+### Ingestion Logs - `/api/v1/ingestion-logs`
+
+| Method   | Path                    | Roles  | Description                                   | Status |
+| -------- | ----------------------- | ------ | --------------------------------------------- | ------ |
+| `GET`    | `/`                     | admin  | List logs (filter: `?fileName=`)              | 200    |
+| `POST`   | `/`                     | admin  | Create log entry (status=PROCESSING)          | 201    |
+| `PUT`    | `/{ingestionLogId}`     | admin  | Update log status (COMPLETED/FAILED)          | 200    |
 
 ## Domain Model
 

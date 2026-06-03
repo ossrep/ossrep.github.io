@@ -7,6 +7,7 @@ OSSREP organization documentation site.
 | Repository                                                                 | Description                                        | Tech Stack                        |
 | -------------------------------------------------------------------------- | -------------------------------------------------- | --------------------------------- |
 | [api-service-point](https://github.com/ossrep/api-service-point)           | Utility service point management REST API           | Quarkus, PostgreSQL, Kafka        |
+| [job-ercot-esiid](https://github.com/ossrep/job-ercot-esiid)               | ERCOT ESIID data ingestion CLI                      | Quarkus CLI, Picocli              |
 
 ## What's Not Included
 
