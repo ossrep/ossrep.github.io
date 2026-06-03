@@ -1,0 +1,1652 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="OSSREP Organization Documentation">
+      
+      
+        <meta name="author" content="OSSREP">
+      
+      
+        <link rel="canonical" href="https://ossrep.github.io/projects/api-service-point/">
+      
+      
+        <link rel="prev" href="../..">
+      
+      
+        <link rel="next" href="../integration-ercot/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>api-service-point - OSSREP</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Red+Hat+Text:300,300i,400,400i,700,700i%7CRed+Hat+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Red Hat Text";--md-code-font:"Red Hat Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#api-service-point" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="OSSREP" class="md-header__button md-logo" aria-label="OSSREP" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            OSSREP
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              api-service-point
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
+          
+  
+  
+  Projects
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../references/ercot/" class="md-tabs__link">
+          
+  
+  
+  References
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="OSSREP" class="md-nav__button md-logo" aria-label="OSSREP" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    OSSREP
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Projects
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Projects
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    api-service-point
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    api-service-point
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology Stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rest-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REST Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="REST Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#isos-apiv1isos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISOs - /api/v1/isos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tdsps-apiv1tdsps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDSPs - /api/v1/tdsps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-points-apiv1service-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Points - /api/v1/service-points
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain Model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tdsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDSP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servicepoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ServicePoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kafka-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kafka Events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Conventions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Development
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-in-dev-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run in dev mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container build
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../integration-ercot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    integration-ercot
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    References
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    References
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../references/ercot/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ERCOT
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#technology-stack" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Technology Stack
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#rest-endpoints" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        REST Endpoints
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="REST Endpoints">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#isos-apiv1isos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISOs - /api/v1/isos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tdsps-apiv1tdsps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDSPs - /api/v1/tdsps
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#service-points-apiv1service-points" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Service Points - /api/v1/service-points
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Domain Model
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain Model">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#iso" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ISO
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tdsp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        TDSP
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#servicepoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ServicePoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kafka-events" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kafka Events
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#database" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Database
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Database">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tables
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#key-conventions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Conventions
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-development" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local Development
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Local Development">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#prerequisites" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Prerequisites
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#run-in-dev-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Run in dev mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Build
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#container-build" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Container build
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="api-service-point">api-service-point<a class="headerlink" href="#api-service-point" title="Permanent link">&para;</a></h1>
+<p>Utility/energy service point management REST API built with Quarkus.</p>
+<h2 id="technology-stack">Technology Stack<a class="headerlink" href="#technology-stack" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Technology</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Quarkus 3.33</td>
+<td>Application framework</td>
+</tr>
+<tr>
+<td>Java 25</td>
+<td>Language (latest LTS)</td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td>Persistence</td>
+</tr>
+<tr>
+<td>Kafka</td>
+<td>Event streaming</td>
+</tr>
+<tr>
+<td>Flyway</td>
+<td>Schema migration</td>
+</tr>
+<tr>
+<td>OIDC</td>
+<td>Authentication</td>
+</tr>
+</tbody>
+</table>
+<h2 id="architecture">Architecture<a class="headerlink" href="#architecture" title="Permanent link">&para;</a></h2>
+<p>The API follows a three-tier architecture:</p>
+<ul>
+<li><strong>API layer</strong> (<code>com.ossrep.servicepoint.api</code>) - REST resources, request/response records, roles</li>
+<li><strong>Service layer</strong> (<code>com.ossrep.servicepoint.service</code>) - Business logic, domain records, event emission</li>
+<li><strong>Repository layer</strong> (<code>com.ossrep.servicepoint.repository</code>) - JPA entities, Panache repositories</li>
+</ul>
+<h2 id="rest-endpoints">REST Endpoints<a class="headerlink" href="#rest-endpoints" title="Permanent link">&para;</a></h2>
+<p>All endpoints are secured with OIDC and require appropriate roles.</p>
+<h3 id="isos-apiv1isos">ISOs - <code>/api/v1/isos</code><a class="headerlink" href="#isos-apiv1isos" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Roles</th>
+<th>Description</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/</code></td>
+<td>admin, user</td>
+<td>List all ISOs</td>
+<td>200</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/{isoId}</code></td>
+<td>admin, user</td>
+<td>Get an ISO by ID</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tdsps-apiv1tdsps">TDSPs - <code>/api/v1/tdsps</code><a class="headerlink" href="#tdsps-apiv1tdsps" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Roles</th>
+<th>Description</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/</code></td>
+<td>admin, user</td>
+<td>List all TDSPs (filter: <code>?code=</code>)</td>
+<td>200</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/{tdspId}</code></td>
+<td>admin, user</td>
+<td>Get a TDSP by ID</td>
+<td>200</td>
+</tr>
+</tbody>
+</table>
+<h3 id="service-points-apiv1service-points">Service Points - <code>/api/v1/service-points</code><a class="headerlink" href="#service-points-apiv1service-points" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Path</th>
+<th>Roles</th>
+<th>Description</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GET</code></td>
+<td><code>/</code></td>
+<td>admin, user</td>
+<td>List all service points</td>
+<td>200</td>
+</tr>
+<tr>
+<td><code>GET</code></td>
+<td><code>/{servicePointId}</code></td>
+<td>admin, user</td>
+<td>Get a service point by ID</td>
+<td>200</td>
+</tr>
+<tr>
+<td><code>POST</code></td>
+<td><code>/</code></td>
+<td>admin</td>
+<td>Create a new service point</td>
+<td>201</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td><code>/{servicePointId}</code></td>
+<td>admin</td>
+<td>Update a service point</td>
+<td>200</td>
+</tr>
+<tr>
+<td><code>PUT</code></td>
+<td><code>/bulk</code></td>
+<td>admin</td>
+<td>Bulk upsert by ESIID</td>
+<td>200</td>
+</tr>
+<tr>
+<td><code>DELETE</code></td>
+<td><code>/{servicePointId}</code></td>
+<td>admin</td>
+<td>Delete a service point</td>
+<td>204</td>
+</tr>
+</tbody>
+</table>
+<h2 id="domain-model">Domain Model<a class="headerlink" href="#domain-model" title="Permanent link">&para;</a></h2>
+<h3 id="iso">ISO<a class="headerlink" href="#iso" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>isoId</td>
+<td>Long</td>
+<td>auto</td>
+<td>Primary key (BIGSERIAL)</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>yes</td>
+<td>Full name of the ISO</td>
+</tr>
+<tr>
+<td>code</td>
+<td>String</td>
+<td>yes</td>
+<td>Short code (unique, e.g. ERCOT)</td>
+</tr>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>no</td>
+<td>Description</td>
+</tr>
+<tr>
+<td>createdAt</td>
+<td>Instant</td>
+<td>auto</td>
+<td>Creation timestamp</td>
+</tr>
+<tr>
+<td>updatedAt</td>
+<td>Instant</td>
+<td>auto</td>
+<td>Last update timestamp</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tdsp">TDSP<a class="headerlink" href="#tdsp" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tdspId</td>
+<td>Long</td>
+<td>auto</td>
+<td>Primary key (BIGSERIAL)</td>
+</tr>
+<tr>
+<td>isoId</td>
+<td>Long</td>
+<td>yes</td>
+<td>Foreign key to ISO</td>
+</tr>
+<tr>
+<td>name</td>
+<td>String</td>
+<td>yes</td>
+<td>Full name of the TDSP</td>
+</tr>
+<tr>
+<td>code</td>
+<td>String</td>
+<td>yes</td>
+<td>Short code (unique, e.g. CENTERPOINT)</td>
+</tr>
+<tr>
+<td>duns</td>
+<td>String</td>
+<td>no</td>
+<td>DUNS number (unique when present)</td>
+</tr>
+<tr>
+<td>description</td>
+<td>String</td>
+<td>no</td>
+<td>Description</td>
+</tr>
+<tr>
+<td>createdAt</td>
+<td>Instant</td>
+<td>auto</td>
+<td>Creation timestamp</td>
+</tr>
+<tr>
+<td>updatedAt</td>
+<td>Instant</td>
+<td>auto</td>
+<td>Last update timestamp</td>
+</tr>
+</tbody>
+</table>
+<h3 id="servicepoint">ServicePoint<a class="headerlink" href="#servicepoint" title="Permanent link">&para;</a></h3>
+<p>The service point model is aligned with the official <a href="https://www.ercot.com/mp/data-products/data-product-details?id=ZP15-612">ERCOT TDSP ESIID Extract DDL</a> (Report Type ID 203).</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Required</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>servicePointId</td>
+<td>Long</td>
+<td>auto</td>
+<td>Primary key (BIGSERIAL)</td>
+</tr>
+<tr>
+<td>tdspId</td>
+<td>Long</td>
+<td>no</td>
+<td>Foreign key to TDSP</td>
+</tr>
+<tr>
+<td>esiid</td>
+<td>String</td>
+<td>yes</td>
+<td>Electric Service Identifier (22-char ERCOT ID, unique)</td>
+</tr>
+<tr>
+<td>street</td>
+<td>String</td>
+<td>no</td>
+<td>Registered street address</td>
+</tr>
+<tr>
+<td>streetLine2</td>
+<td>String</td>
+<td>no</td>
+<td>Address overflow</td>
+</tr>
+<tr>
+<td>city</td>
+<td>String</td>
+<td>no</td>
+<td>City</td>
+</tr>
+<tr>
+<td>state</td>
+<td>String</td>
+<td>no</td>
+<td>State</td>
+</tr>
+<tr>
+<td>zip</td>
+<td>String</td>
+<td>no</td>
+<td>ZIP code</td>
+</tr>
+<tr>
+<td>county</td>
+<td>String</td>
+<td>no</td>
+<td>County</td>
+</tr>
+<tr>
+<td>meterReadCycle</td>
+<td>String</td>
+<td>no</td>
+<td>Meter read cycle / structure type</td>
+</tr>
+<tr>
+<td>status</td>
+<td>String</td>
+<td>yes</td>
+<td>Active, Inactive, or De-Energized</td>
+</tr>
+<tr>
+<td>premiseType</td>
+<td>String</td>
+<td>no</td>
+<td>Residential, Small Non-Residential, or Large Non-Residential</td>
+</tr>
+<tr>
+<td>stationCode</td>
+<td>String</td>
+<td>no</td>
+<td>Substation code</td>
+</tr>
+<tr>
+<td>stationName</td>
+<td>String</td>
+<td>no</td>
+<td>Substation name</td>
+</tr>
+<tr>
+<td>metered</td>
+<td>Boolean</td>
+<td>yes</td>
+<td>Whether the service point is metered</td>
+</tr>
+<tr>
+<td>openServiceOrders</td>
+<td>String</td>
+<td>no</td>
+<td>Concatenated pending service orders (pipe-delimited)</td>
+</tr>
+<tr>
+<td>polrCustomerClass</td>
+<td>String</td>
+<td>no</td>
+<td>POLR customer class (Residential, Small/Medium/Large Non-Res)</td>
+</tr>
+<tr>
+<td>settlementAmsIndicator</td>
+<td>String</td>
+<td>no</td>
+<td>AMS meter flag (Y/N)</td>
+</tr>
+<tr>
+<td>tdspAmsIndicator</td>
+<td>String</td>
+<td>no</td>
+<td>TDSP AMS indicator (AMSM, AMSR, or null)</td>
+</tr>
+<tr>
+<td>switchHoldIndicator</td>
+<td>String</td>
+<td>no</td>
+<td>Switch hold present at ERCOT (Y/N)</td>
+</tr>
+<tr>
+<td>meteredServiceType</td>
+<td>String</td>
+<td>no</td>
+<td>Primary metered service type code (e.g. M04)</td>
+</tr>
+<tr>
+<td>meteredServiceTypeDesc</td>
+<td>String</td>
+<td>no</td>
+<td>Description of the metered service type</td>
+</tr>
+<tr>
+<td>createdAt</td>
+<td>Instant</td>
+<td>auto</td>
+<td>Creation timestamp</td>
+</tr>
+<tr>
+<td>updatedAt</td>
+<td>Instant</td>
+<td>auto</td>
+<td>Last update timestamp</td>
+</tr>
+</tbody>
+</table>
+<h2 id="kafka-events">Kafka Events<a class="headerlink" href="#kafka-events" title="Permanent link">&para;</a></h2>
+<p>Topic: <code>service-point-events</code></p>
+<p>Events are emitted on CRUD operations:</p>
+<table>
+<thead>
+<tr>
+<th>Event Type</th>
+<th>Trigger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SERVICE_POINT_CREATED</td>
+<td>New service point</td>
+</tr>
+<tr>
+<td>SERVICE_POINT_UPDATED</td>
+<td>Service point update</td>
+</tr>
+<tr>
+<td>SERVICE_POINT_DELETED</td>
+<td>Service point delete</td>
+</tr>
+</tbody>
+</table>
+<p>Each event contains the event type, a timestamp, and the full service point payload.</p>
+<h2 id="database">Database<a class="headerlink" href="#database" title="Permanent link">&para;</a></h2>
+<h3 id="tables">Tables<a class="headerlink" href="#tables" title="Permanent link">&para;</a></h3>
+<ul>
+<li><code>iso</code> - Independent System Operator reference data (seeded with ERCOT)</li>
+<li><code>tdsp</code> - Transmission/Distribution Service Provider reference data (seeded with 11 TDSPs)</li>
+<li><code>service_point</code> - Service points with <code>tdsp_id</code> FK to <code>tdsp</code></li>
+</ul>
+<h3 id="key-conventions">Key Conventions<a class="headerlink" href="#key-conventions" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Singular table names</li>
+<li>Primary keys: <code>BIGSERIAL</code></li>
+<li>Foreign keys: <code>BIGINT REFERENCES</code></li>
+<li><code>service_point_id</code> sequence starts at 1000000000000000000</li>
+<li>Schema managed by Flyway</li>
+<li>Test data loaded in dev/test profiles via <code>db/testdata</code></li>
+</ul>
+<h2 id="local-development">Local Development<a class="headerlink" href="#local-development" title="Permanent link">&para;</a></h2>
+<h3 id="prerequisites">Prerequisites<a class="headerlink" href="#prerequisites" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Java 25</li>
+<li>Maven 3.9+</li>
+<li>Podman (for Dev Services)</li>
+</ul>
+<h3 id="run-in-dev-mode">Run in dev mode<a class="headerlink" href="#run-in-dev-mode" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nb">cd</span><span class="w"> </span>api-service-point
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-25-openjdk<span class="w"> </span>./mvnw<span class="w"> </span>quarkus:dev
+</code></pre></div>
+<p>Quarkus Dev Services will automatically start PostgreSQL (port 5431) and Kafka containers.</p>
+<p>The API will be available at <a href="http://localhost:8080">http://localhost:8080</a>.</p>
+<p>OpenAPI spec available at <a href="http://localhost:8080/q/openapi">http://localhost:8080/q/openapi</a>.</p>
+<h3 id="build">Build<a class="headerlink" href="#build" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-25-openjdk<span class="w"> </span>./mvnw<span class="w"> </span>package
+</code></pre></div>
+<h3 id="container-build">Container build<a class="headerlink" href="#container-build" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nv">JAVA_HOME</span><span class="o">=</span>/usr/lib/jvm/java-25-openjdk<span class="w"> </span>./mvnw<span class="w"> </span>package
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>podman<span class="w"> </span>build<span class="w"> </span>-f<span class="w"> </span>Containerfile<span class="w"> </span>-t<span class="w"> </span>api-service-point<span class="w"> </span>.
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.expand", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
