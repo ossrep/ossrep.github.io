@@ -4,11 +4,22 @@ OSSREP organization documentation site.
 
 ## Projects
 
-| Project                                                                        | Description                                 | Tech Stack                        |
-| ------------------------------------------------------------------------------ | ------------------------------------------- | --------------------------------- |
-| [api-service-point](projects/api-service-point.md)                             | Utility service point management REST API   | Quarkus, PostgreSQL, Kafka        |
-| [job-ercot-esiid](projects/job-ercot-esiid.md)                                 | ERCOT ESIID data ingestion CLI              | Quarkus CLI, PostgreSQL           |
+| Project                                                    | Description                                 | Tech Stack                        |
+| ---------------------------------------------------------- | ------------------------------------------- | --------------------------------- |
+| [api-service-point](projects/api-service-point.md)         | Utility service point management REST API   | Quarkus, PostgreSQL, Kafka        |
+| [integration-ercot](projects/integration-ercot.md)         | ERCOT public data integration library       | Quarkus library                   |
 
-## What's Not Included
+## Local Development Ports
 
-* User experience - no web projects, iOS apps. This is all backend services.
+| Port  | Service                                | Project            |
+| ----- | -------------------------------------- | ------------------ |
+| 8001  | MkDocs dev server                      | ossrep.github.io   |
+| 8080  |                                        | api-service-point  |
+| 8081  | REST API                               | api-service-point  |
+| 5431  | PostgreSQL (Dev Services)              | api-service-point  |
+
+Port conventions:
+
+- **8000s** -- web / documentation servers
+- **8080s** -- API services
+- **5430s** -- PostgreSQL databases (last digit matches the API it backs)

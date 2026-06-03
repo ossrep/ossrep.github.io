@@ -53,9 +53,9 @@ nav:
   - Home: index.md
   - Projects:
     - api-service-point: projects/api-service-point.md
-    - job-ercot-esiid: projects/job-ercot-esiid.md
-  - Integrations:
-    - ERCOT: integrations/ercot.md
+    - integration-ercot: projects/integration-ercot.md
+  - References:
+    - ERCOT: references/ercot.md
 
 plugins:
   - search

@@ -154,11 +154,11 @@ cd api-service-point
 JAVA_HOME=/usr/lib/jvm/java-25-openjdk ./mvnw quarkus:dev
 ```
 
-Quarkus Dev Services will automatically start PostgreSQL (port 5430) and Kafka containers.
+Quarkus Dev Services will automatically start PostgreSQL (port 5431) and Kafka containers.
 
-The API will be available at [http://localhost:8080](http://localhost:8080).
+The API will be available at [http://localhost:8081](http://localhost:8081).
 
-OpenAPI spec available at [http://localhost:8080/q/openapi](http://localhost:8080/q/openapi).
+OpenAPI spec available at [http://localhost:8081/q/openapi](http://localhost:8081/q/openapi).
 
 ### Build
 
